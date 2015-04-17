@@ -1,30 +1,31 @@
 package estimatingpi;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- *
- * @author ldbruby95
- */
 public class EstimatingPi extends JApplet implements Runnable {
 
 
     int center;
     int pin;
     double pi;
-    static Dimension d = new Dimension(750,750);
+
     static Graphics gC; // circle
     static Graphics gS; // square
     static Graphics point;
 
     public static void Go(double r, int n) {
+        //will this also lose decimal places?
+        Dimension d = new Dimension((int) (2*r), (int) (2*r));
+        //I want points outside of circle to be magenta, and points inside 
+        //circle to be blue.
+        
+        
+        //basically, size of frame should be size of square. 
+        
+        
         //r is radius
         //n is number of points to be made
         int count = 0;
@@ -55,6 +56,7 @@ public class EstimatingPi extends JApplet implements Runnable {
 
         //creating frame
         JFrame f = new JFrame();
+        //setting size of the frame
         f.setSize(d);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -72,15 +74,20 @@ public class EstimatingPi extends JApplet implements Runnable {
                 color = Color.BLUE;
 
                 count++;
+                point.setColor(color);
                 point.drawOval((int) x, (int) y, pW, pH);
+                //draws point each time x, y changes. 
                 
             }
-            point.setColor(color);
+            
             I = AoS * ((double) count / (double) m);
             pi = I / (r * r);
             System.out.println(pi);
 
             JLabel label = new JLabel("Count: " + count + ", Pi estimate: " + pi);
+            f.add(label, JLabel.BOTTOM);
+            //adding label
+            f.setVisible(true);
         }
 
     }
