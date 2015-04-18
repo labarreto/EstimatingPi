@@ -17,11 +17,7 @@ public class EstimatingPi extends JApplet implements Runnable {
     static Graphics point;
 
     public static void Go(double r, int n) {
-        //will this also lose decimal places?
-        Dimension d = new Dimension((int) (2*r), (int) (2*r));
-        //I want points outside of circle to be magenta, and points inside 
-        //circle to be blue.
-        
+
         
         //basically, size of frame should be size of square. 
         
@@ -57,28 +53,35 @@ public class EstimatingPi extends JApplet implements Runnable {
         //creating frame
         JFrame f = new JFrame();
         //setting size of the frame
-        f.setSize(d);
+        f.setSize(720,720);
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         Random rd = new Random();
 
         int m = 0;
-        
+        double x1;
+        double y1;
         for (int i = 0; i < n; i++) {
             m++;
             // calculating pi, how many have we done so far
             double x = rd.nextDouble() * 2 * r - r;
             double y = rd.nextDouble() * 2 * r - r;
+            x1 = x;
+            y1 = y;
             if (inCircleHuh(x, y, r)) {
 
                 color = Color.BLUE;
 
                 count++;
                 point.setColor(color);
-                point.drawOval((int) x, (int) y, pW, pH);
+                point.drawOval(((int) Math.round(((x + r) * (360.0/r)))) , 
+                        ((int) Math.round(((y + r) * (360.0/r)))), 
+                        720, 720);
                 //draws point each time x, y changes. 
                 
             }
+            
+            
             
             I = AoS * ((double) count / (double) m);
             pi = I / (r * r);
@@ -91,7 +94,8 @@ public class EstimatingPi extends JApplet implements Runnable {
         }
 
     }
-
+   
+    
     public static boolean inCircleHuh(double x, double y, double r) {
         //System.out.println("x = " + x + ", y = " + y);
         return (Math.sqrt(x * x + y * y)) <= (r);
