@@ -6,18 +6,27 @@ import javax.swing.*;
 import java.awt.*;
 
 public class EstimatingPi extends JApplet implements Runnable {
-
-
+    
+    int radius;
+    int scale;
+    
     int center;
     int pin;
     double pi;
 
     static Graphics gC; // circle
-    static Graphics gS; // square
+
     static Graphics point;
+    
+    public static void makeGUI() {
+        JFrame fr = new JFrame("Estimating Pi");
+        fr.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        fr.setSize(720,720);
+    }
 
-    public static void Go(double r, int n) {
+    public void Go(double r, int n) {
 
+        radius = (int) r;
         
         //basically, size of frame should be size of square. 
         
@@ -44,9 +53,7 @@ public class EstimatingPi extends JApplet implements Runnable {
         
         
         gC.drawOval(cornerX, cornerY, width, height);
-        gS.drawRect(cornerX, cornerY, width, height);
-        
-        
+
         
         JPanel panel = new JPanel();
 
@@ -113,7 +120,7 @@ public class EstimatingPi extends JApplet implements Runnable {
 
     }
 
-    public static void main(String[] args) {
+    public void main(String[] args) {
         Go(1.0, 1000);
     }
 
