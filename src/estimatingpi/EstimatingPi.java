@@ -59,15 +59,13 @@ public class EstimatingPi extends JApplet implements Runnable {
         Random rd = new Random();
 
         int m = 0;
-        double x1;
-        double y1;
+
         for (int i = 0; i < n; i++) {
             m++;
             // calculating pi, how many have we done so far
             double x = rd.nextDouble() * 2 * r - r;
             double y = rd.nextDouble() * 2 * r - r;
-            x1 = x;
-            y1 = y;
+
             if (inCircleHuh(x, y, r)) {
 
                 color = Color.BLUE;
@@ -76,7 +74,8 @@ public class EstimatingPi extends JApplet implements Runnable {
                 point.setColor(color);
                 point.drawOval(((int) Math.round(((x + r) * (360.0/r)))) , 
                         ((int) Math.round(((y + r) * (360.0/r)))), 
-                        720, 720);
+                        1, 1);
+                //width and height are 1 because it's tiny point. 
                 //draws point each time x, y changes. 
                 
             }
@@ -106,7 +105,7 @@ public class EstimatingPi extends JApplet implements Runnable {
         int diameter = radius * 2;
 
         //shift x and y by the radius of the circle in order to correctly center it
-        g.fillOval(x - radius, y - radius, diameter, diameter);
+        g.fillOval(x - radius, y - radius, 360, 360);
 
     }
 
