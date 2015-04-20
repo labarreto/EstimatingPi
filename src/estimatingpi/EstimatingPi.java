@@ -5,7 +5,7 @@ import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 
-public class EstimatingPi extends JApplet implements Runnable {
+public class EstimatingPi{
     
     int radius;
     int scale;
@@ -122,10 +122,13 @@ public class EstimatingPi extends JApplet implements Runnable {
 
     public void main(String[] args) {
         Go(1.0, 1000);
+        public void run() {
+           makeGUI();
+        }
     }
 
-    @Override
-    public void run() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+
 }
+
+
+
