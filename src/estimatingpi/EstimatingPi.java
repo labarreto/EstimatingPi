@@ -18,9 +18,10 @@ import javax.swing.Timer;
  */
 public class EstimatingPi extends JPanel {
 
-    static int W = 720;
-    static int H = 720;
-    static double r = 360;
+    static int W = 500 + 15;
+    static int H = 500 + 30; // plus 30 because frame cuts a bit short due to
+    // panel title
+    static double r = 250;
     static double mypi;
     ArrayList<Point> pts = new ArrayList<>();
     //ArrayList pts = new ArrayList();
@@ -90,11 +91,11 @@ public class EstimatingPi extends JPanel {
                 c = Color.BLUE;
                 
             } else {
-                c = Color.MAGENTA;
+                c = Color.MAGENTA;//new Color(255,20,147); //;
             }
             
-            int x = ((int) Math.round(pt.xp) + 360);
-            int y = ((int) Math.round(pt.yp) + 360);
+            int x = ((int) Math.round(pt.xp) + (int) Math.round(r));
+            int y = ((int) Math.round(pt.yp) + (int) Math.round(r));
             
             g.setColor(c);
             g.fillOval(x, y, 5, 5);
@@ -103,14 +104,15 @@ public class EstimatingPi extends JPanel {
         String s = "pi: " + mypi;
         String ss = "points: " + m;
         g.setColor(Color.BLACK);
-        g.drawChars(s.toCharArray(), 0, s.length(), 5, 660);
-        g.drawChars(ss.toCharArray(),0, ss.length(), 5, 675);
+        g.setFont(new Font("default", Font.BOLD, 16));
+        g.drawChars(s.toCharArray(), 0, s.length(), 5, H-60);
+        g.drawChars(ss.toCharArray(),0, ss.length(), 5, H-45);
         
 
     }
 
     private static void makeGUI() {
-        JFrame f = new JFrame("Plot");
+        JFrame f = new JFrame("Estimating Pi using Monte Carlo Technique - LB");
 
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(EstimatingPi.W, EstimatingPi.H);
