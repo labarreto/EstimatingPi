@@ -33,7 +33,7 @@ public class Estimate{
             double x = rd.nextDouble()*2*r - r;
             double y = rd.nextDouble()*2*r - r; 
             if (inCircleHuh(x,y,r)) {
-                count++;
+                count++; // count represents how many points inside circle
             }
             I = AoS * ((double) count / (double) m);        
             pi = I/(r*r);       
@@ -50,7 +50,7 @@ public class Estimate{
     
    
     public static void main(String[] args) {
-        Go(1.0,1000);
+        Go(2.0,1000);
     }
 
 }

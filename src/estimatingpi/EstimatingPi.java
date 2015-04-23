@@ -58,7 +58,7 @@ public class EstimatingPi extends JPanel {
 
     public void timer() {
         int m = 0;
-
+        int count = 0;
         n++;
 
         for (int i = 0; i < n; i++) {
@@ -81,7 +81,7 @@ public class EstimatingPi extends JPanel {
     }
 
     public void paint(Graphics g) {
-
+        super.paint(g);
         Color c = Color.MAGENTA;
 
         for (Point pt : pts) {
@@ -91,8 +91,8 @@ public class EstimatingPi extends JPanel {
                 c = Color.BLUE;
             }
             g.setColor(c);
-            int x = ((int) Math.round(pt.xp) + 360);
-            int y = ((int) Math.round(pt.yp) + 360);
+            int x = ((int) Math.round(pt.xp));
+            int y = ((int) Math.round(pt.yp));
             g.drawOval(x, y, 1, 1);
         }
         //JLabel l = new JLabel("pi = " + mypi);
