@@ -58,9 +58,9 @@ public class EstimatingPi extends JPanel {
 
     public void timer() {
         int m = 0;
-       
-            n++;
-       
+
+        n++;
+
         for (int i = 0; i < n; i++) {
             m++;
             // calculating pi, how many have we done so far
@@ -72,9 +72,11 @@ public class EstimatingPi extends JPanel {
 
             if (inside) {
                 count++; // how many points have you added so far?
+
             }
-            I = AoS * ((double) count / (double) n);
+            I = AoS * ((double) count / (double) m);
             mypi = I / (r * r);
+            System.out.println("count: " + count + ", mypi: " + mypi);
         }
     }
 
@@ -83,10 +85,10 @@ public class EstimatingPi extends JPanel {
         Color c = Color.MAGENTA;
 
         for (Point pt : pts) {
-            
-        //object cannot be converted to EstimatingPi.Point???
+
+            //object cannot be converted to EstimatingPi.Point???
             if (pt.inside) {
-                c = Color.BLUE;   
+                c = Color.BLUE;
             }
             g.setColor(c);
             int x = ((int) Math.round(pt.xp) + 360);
@@ -94,20 +96,20 @@ public class EstimatingPi extends JPanel {
             g.drawOval(x, y, 1, 1);
         }
         //JLabel l = new JLabel("pi = " + mypi);
-       
+
     }
 
     private static void makeGUI() {
         JFrame f = new JFrame("Plot");
-        
+
         f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         f.setSize(EstimatingPi.W, EstimatingPi.H);
         final EstimatingPi ep = new EstimatingPi();
         f.add(ep);
-   
-        JLabel text = new JLabel("pi = " + mypi);
-        f.add(text, BorderLayout.SOUTH);
-        f.setVisible(true);
+
+//        JLabel text = new JLabel("pi = " + mypi);
+//        f.add(text, BorderLayout.SOUTH);
+//        f.setVisible(true);
         int delay = 140;
 
         ActionListener taskPerformer = new ActionListener() {
@@ -116,6 +118,12 @@ public class EstimatingPi extends JPanel {
             }
         };
         new Timer(delay, taskPerformer).start();
+
+        JLabel text = new JLabel("pi = " + mypi);
+        f.add(text, BorderLayout.SOUTH);
+        f.setVisible(true);
+        
+
     }
 
     public static void main(String[] args) {
