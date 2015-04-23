@@ -23,7 +23,8 @@ public class EstimatingPi extends JPanel {
     static double r = 360;
     int n = 40;
     static double mypi;
-    ArrayList pts = new ArrayList();
+    ArrayList<Point> pts = new ArrayList<Point>();
+    //ArrayList pts = new ArrayList();
     int count = 0;
     double I;
     double AoS = (2.0 * r) * (2.0 * r); // area of square;
@@ -57,9 +58,9 @@ public class EstimatingPi extends JPanel {
 
     public void timer() {
         int m = 0;
-        while (n < 50040) {
+       
             n++;
-        }
+       
         for (int i = 0; i < n; i++) {
             m++;
             // calculating pi, how many have we done so far
@@ -93,7 +94,7 @@ public class EstimatingPi extends JPanel {
             g.drawOval(x, y, 1, 1);
         }
         //JLabel l = new JLabel("pi = " + mypi);
-        paint(g);
+       
     }
 
     private static void makeGUI() {
