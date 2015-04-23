@@ -57,7 +57,7 @@ public class EstimatingPi extends JPanel {
 
     public void timer() {
         int m = 0;
-        while (n < 50000) {
+        while (n < 50040) {
             n++;
         }
         for (int i = 0; i < n; i++) {
@@ -80,13 +80,14 @@ public class EstimatingPi extends JPanel {
     public void paint(Graphics g) {
 
         Color c = Color.MAGENTA;
-        g.setColor(c);
-        for (Point pt : pts) {//object cannot be converted to EstimatingPi.Point???
-            if (pt.inside) {
-                c = Color.BLUE;
-                g.setColor(Color.BLUE);
-            }
 
+        for (Point pt : pts) {
+            
+        //object cannot be converted to EstimatingPi.Point???
+            if (pt.inside) {
+                c = Color.BLUE;   
+            }
+            g.setColor(c);
             int x = ((int) Math.round(pt.xp) + 360);
             int y = ((int) Math.round(pt.yp) + 360);
             g.drawOval(x, y, 1, 1);
