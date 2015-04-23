@@ -21,7 +21,6 @@ public class EstimatingPi extends JPanel {
     static int W = 720;
     static int H = 720;
     static double r = 360;
-    int n = 40;
     static double mypi;
     ArrayList<Point> pts = new ArrayList<>();
     //ArrayList pts = new ArrayList();
@@ -55,14 +54,11 @@ public class EstimatingPi extends JPanel {
         //System.out.println("x = " + x + ", y = " + y);
         return (Math.sqrt(x * x + y * y)) <= (r);
     }
+    
+   int m = 0;
 
     public void timer() {
-        int m = 0;
-        int count = 0;
         
-        n++;
-
-        for (int i = 0; i < n; i++) {
             m++;
             // calculating pi, how many have we done so far
             double x = rd.nextDouble() * 2 * r - r;
@@ -77,8 +73,11 @@ public class EstimatingPi extends JPanel {
             }
             I = AoS * ((double) count / (double) m);
             mypi = I / (r * r);
-            System.out.println("total points: " + n  + ", mypi: " + mypi);
-        }
+            System.out.println("total points: " + m  + ", mypi: " + mypi);
+            
+            
+        this.revalidate();
+        this.repaint();
     }
 
     public void paint(Graphics g) {
@@ -100,7 +99,13 @@ public class EstimatingPi extends JPanel {
             g.setColor(c);
             g.fillOval(x, y, 5, 5);
         }
-        //JLabel l = new JLabel("pi = " + mypi);
+        
+        String s = "pi: " + mypi;
+        String ss = "points: " + m;
+        g.setColor(Color.BLACK);
+        g.drawChars(s.toCharArray(), 0, s.length(), 5, 660);
+        g.drawChars(ss.toCharArray(),0, ss.length(), 5, 675);
+        
 
     }
 
@@ -111,11 +116,8 @@ public class EstimatingPi extends JPanel {
         f.setSize(EstimatingPi.W, EstimatingPi.H);
         final EstimatingPi ep = new EstimatingPi();
         f.add(ep);
-
-//        JLabel text = new JLabel("pi = " + mypi);
-//        f.add(text, BorderLayout.SOUTH);
-//        f.setVisible(true);
-        int delay = 140;
+        
+        int delay = 70;
 
         ActionListener taskPerformer = new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -124,8 +126,6 @@ public class EstimatingPi extends JPanel {
         };
         new Timer(delay, taskPerformer).start();
 
-        JLabel text = new JLabel("pi = " + mypi);
-        f.add(text, BorderLayout.SOUTH);
         f.setVisible(true);
         
 
