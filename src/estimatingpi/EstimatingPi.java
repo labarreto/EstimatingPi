@@ -23,12 +23,12 @@ public class EstimatingPi extends JPanel {
     static double r = 360;
     int n = 40;
     static double mypi;
-    ArrayList<Point> pts = new ArrayList<Point>();
+    ArrayList<Point> pts = new ArrayList<>();
     //ArrayList pts = new ArrayList();
     int count = 0;
     double I;
     double AoS = (2.0 * r) * (2.0 * r); // area of square;
-
+    Color c;
     Random rd;
 
     public EstimatingPi() {
@@ -59,6 +59,7 @@ public class EstimatingPi extends JPanel {
     public void timer() {
         int m = 0;
         int count = 0;
+        
         n++;
 
         for (int i = 0; i < n; i++) {
@@ -68,7 +69,7 @@ public class EstimatingPi extends JPanel {
             double y = rd.nextDouble() * 2 * r - r;
             boolean inside = inCircleHuh(x, y, r);
 
-            this.pts.add(new Point(x, y, inside));
+            pts.add(new Point(x, y, inside));
 
             if (inside) {
                 count++; // how many points have you added so far?
@@ -76,24 +77,28 @@ public class EstimatingPi extends JPanel {
             }
             I = AoS * ((double) count / (double) m);
             mypi = I / (r * r);
-            System.out.println("count: " + count + ", mypi: " + mypi);
+            System.out.println("total points: " + n  + ", mypi: " + mypi);
         }
     }
 
     public void paint(Graphics g) {
         super.paint(g);
-        Color c = Color.MAGENTA;
 
         for (Point pt : pts) {
 
             //object cannot be converted to EstimatingPi.Point???
             if (pt.inside) {
                 c = Color.BLUE;
+                
+            } else {
+                c = Color.MAGENTA;
             }
+            
+            int x = ((int) Math.round(pt.xp) + 360);
+            int y = ((int) Math.round(pt.yp) + 360);
+            
             g.setColor(c);
-            int x = ((int) Math.round(pt.xp));
-            int y = ((int) Math.round(pt.yp));
-            g.drawOval(x, y, 1, 1);
+            g.fillOval(x, y, 5, 5);
         }
         //JLabel l = new JLabel("pi = " + mypi);
 
