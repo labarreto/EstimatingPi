@@ -8,27 +8,31 @@ package estimatingpi;
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.Timer;
 
 /**
  *
  * @author ldbruby95
  */
-public class EstimatingPi {
+public class EstimatingPi extends JPanel {
 
+    static int W = 720;
+    static int H = 720;
     static double r = 360;
-    int n;
-    double mypi;
+    int n = 40;
+    static double mypi;
     ArrayList pts = new ArrayList();
     int count = 0;
     double I;
     double AoS = (2.0 * r) * (2.0 * r); // area of square;
 
-    Random rd = new Random();
+    Random rd;
 
-    public EstimatingPi(ArrayList pts, double mypi, int n) {
-        this.pts = pts;
-        this.mypi = mypi;
-        this.n = n;
+    public EstimatingPi() {
+        this.pts = new ArrayList();
+        this.rd = new Random();
 
     }
 
@@ -43,6 +47,7 @@ public class EstimatingPi {
             this.yp = yp;
             this.inside = inside;
         }
+
     }
 
     public static boolean inCircleHuh(double x, double y, double r) {
@@ -51,14 +56,19 @@ public class EstimatingPi {
     }
 
     public void timer() {
-        for (int i = 0; i < n; i++) {
+        int m = 0;
+        while (n < 50000) {
             n++;
+        }
+        for (int i = 0; i < n; i++) {
+            m++;
             // calculating pi, how many have we done so far
             double x = rd.nextDouble() * 2 * r - r;
             double y = rd.nextDouble() * 2 * r - r;
             boolean inside = inCircleHuh(x, y, r);
 
             this.pts.add(new Point(x, y, inside));
+
             if (inside) {
                 count++; // how many points have you added so far?
             }
@@ -67,46 +77,51 @@ public class EstimatingPi {
         }
     }
 
-    public void paint() {
+    public void paint(Graphics g) {
 
-    }
-    
-    // ----------------------------------------------------------------------- //
-
-    public static void Go(double r, int n) {
-        //r is radius
-        //n is number of points to be made
-        //these will all become fields
-
-        ArrayList pts = new ArrayList();
-
-        int count = 0;
-        double I;
-        double AoS = (2.0 * r) * (2.0 * r); // area of square;
-        double pi;
-
-        Random rd = new Random();
-
-        int m = 0;
-
-        for (int i = 0; i < n; i++) {
-            m++;
-            // calculating pi, how many have we done so far
-            double x = rd.nextDouble() * 2 * r - r;
-            double y = rd.nextDouble() * 2 * r - r;
-            boolean inside = inCircleHuh(x, y, r);
-            // this.pts.add(new Point(x, y, inside));
-            if (inside) {
-                count++;
+        Color c = Color.MAGENTA;
+        g.setColor(c);
+        for (Point pt : pts) {//object cannot be converted to EstimatingPi.Point???
+            if (pt.inside) {
+                c = Color.BLUE;
+                g.setColor(Color.BLUE);
             }
-            I = AoS * ((double) count / (double) m);
-            pi = I / (r * r);
-            System.out.println(pi);
 
+            int x = ((int) Math.round(pt.xp) + 360);
+            int y = ((int) Math.round(pt.yp) + 360);
+            g.drawOval(x, y, 1, 1);
         }
-
+        //JLabel l = new JLabel("pi = " + mypi);
+        paint(g);
     }
 
+    private static void makeGUI() {
+        JFrame f = new JFrame("Plot");
+        
+        f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        f.setSize(EstimatingPi.W, EstimatingPi.H);
+        final EstimatingPi ep = new EstimatingPi();
+        f.add(ep);
+   
+        JLabel text = new JLabel("pi = " + mypi);
+        f.add(text, BorderLayout.SOUTH);
+        f.setVisible(true);
+        int delay = 140;
 
+        ActionListener taskPerformer = new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                ep.timer();
+            }
+        };
+        new Timer(delay, taskPerformer).start();
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                makeGUI();
+            }
+        });
+    }
 
 }
